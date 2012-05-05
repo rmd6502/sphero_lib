@@ -1,0 +1,283 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9C30A7BB155073570056115D /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9C30A7BA155073570056115D /* main.mm */; };
+		9C30A7BD155073570056115D /* testSph.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9C30A7BC155073570056115D /* testSph.1 */; };
+		9C30A7D6155074E40056115D /* libSphero.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C30A7D5155074D30056115D /* libSphero.dylib */; };
+		9C8493731554667600728BAA /* BTFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C8493721554667600728BAA /* BTFinder.m */; };
+		9C84937515546B9100728BAA /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C84937415546B9100728BAA /* IOBluetooth.framework */; };
+		9C84937715546BCA00728BAA /* libobjc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C84937615546BCA00728BAA /* libobjc.dylib */; };
+		9C84937915546C1100728BAA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C84937815546C1100728BAA /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9C30A7D4155074D30056115D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9C30A7CD155074D30056115D /* Sphero.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9C30A7A0154E3F180056115D;
+			remoteInfo = Sphero;
+		};
+		9C30A7D7155074F80056115D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9C30A7CD155074D30056115D /* Sphero.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9C30A79F154E3F180056115D;
+			remoteInfo = Sphero;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9C30A7B4155073560056115D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				9C30A7BD155073570056115D /* testSph.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		9C30A7B6155073570056115D /* testSph */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testSph; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C30A7BA155073570056115D /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
+		9C30A7BC155073570056115D /* testSph.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = testSph.1; sourceTree = "<group>"; };
+		9C30A7CD155074D30056115D /* Sphero.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sphero.xcodeproj; path = ../Sphero/Sphero.xcodeproj; sourceTree = "<group>"; };
+		9C8493711554667600728BAA /* BTFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTFinder.h; sourceTree = "<group>"; };
+		9C8493721554667600728BAA /* BTFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTFinder.m; sourceTree = "<group>"; };
+		9C84937415546B9100728BAA /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = System/Library/Frameworks/IOBluetooth.framework; sourceTree = SDKROOT; };
+		9C84937615546BCA00728BAA /* libobjc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libobjc.dylib; path = usr/lib/libobjc.dylib; sourceTree = SDKROOT; };
+		9C84937815546C1100728BAA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9C30A7B3155073560056115D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C84937915546C1100728BAA /* Foundation.framework in Frameworks */,
+				9C84937715546BCA00728BAA /* libobjc.dylib in Frameworks */,
+				9C84937515546B9100728BAA /* IOBluetooth.framework in Frameworks */,
+				9C30A7D6155074E40056115D /* libSphero.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9C30A7AB155073560056115D = {
+			isa = PBXGroup;
+			children = (
+				9C84937815546C1100728BAA /* Foundation.framework */,
+				9C84937615546BCA00728BAA /* libobjc.dylib */,
+				9C84937415546B9100728BAA /* IOBluetooth.framework */,
+				9C30A7CD155074D30056115D /* Sphero.xcodeproj */,
+				9C30A7B9155073570056115D /* testSph */,
+				9C30A7B7155073570056115D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9C30A7B7155073570056115D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9C30A7B6155073570056115D /* testSph */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9C30A7B9155073570056115D /* testSph */ = {
+			isa = PBXGroup;
+			children = (
+				9C30A7BA155073570056115D /* main.mm */,
+				9C30A7BC155073570056115D /* testSph.1 */,
+				9C8493711554667600728BAA /* BTFinder.h */,
+				9C8493721554667600728BAA /* BTFinder.m */,
+			);
+			path = testSph;
+			sourceTree = "<group>";
+		};
+		9C30A7CE155074D30056115D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9C30A7D5155074D30056115D /* libSphero.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9C30A7B5155073560056115D /* testSph */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9C30A7C0155073570056115D /* Build configuration list for PBXNativeTarget "testSph" */;
+			buildPhases = (
+				9C30A7B2155073560056115D /* Sources */,
+				9C30A7B3155073560056115D /* Frameworks */,
+				9C30A7B4155073560056115D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9C30A7D8155074F80056115D /* PBXTargetDependency */,
+			);
+			name = testSph;
+			productName = testSph;
+			productReference = 9C30A7B6155073570056115D /* testSph */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9C30A7AD155073560056115D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 9C30A7B0155073560056115D /* Build configuration list for PBXProject "testSph" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9C30A7AB155073560056115D;
+			productRefGroup = 9C30A7B7155073570056115D /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9C30A7CE155074D30056115D /* Products */;
+					ProjectRef = 9C30A7CD155074D30056115D /* Sphero.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				9C30A7B5155073560056115D /* testSph */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9C30A7D5155074D30056115D /* libSphero.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = libSphero.dylib;
+			remoteRef = 9C30A7D4155074D30056115D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9C30A7B2155073560056115D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C30A7BB155073570056115D /* main.mm in Sources */,
+				9C8493731554667600728BAA /* BTFinder.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9C30A7D8155074F80056115D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Sphero;
+			targetProxy = 9C30A7D7155074F80056115D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		9C30A7BE155073570056115D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		9C30A7BF155073570056115D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		9C30A7C1155073570056115D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = ..;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9C30A7C2155073570056115D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = ..;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9C30A7B0155073560056115D /* Build configuration list for PBXProject "testSph" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C30A7BE155073570056115D /* Debug */,
+				9C30A7BF155073570056115D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9C30A7C0155073570056115D /* Build configuration list for PBXNativeTarget "testSph" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C30A7C1155073570056115D /* Debug */,
+				9C30A7C2155073570056115D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9C30A7AD155073560056115D /* Project object */;
+}
