@@ -13,7 +13,6 @@
 #include <vector>
 #include <pthread.h>
 #include <sys/types.h>
-#include <sys/uio.h>
 #include <sys/select.h>
 #include <sys/ioctl.h>
 #include <fcntl.h>
