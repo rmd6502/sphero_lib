@@ -7,6 +7,7 @@
 //
 
 #include <ios>
+#include <iomanip>
 #include <string>
 #include <sstream>
 #include <numeric>
@@ -20,6 +21,7 @@
 #include <termios.h>
 #include <errno.h>
 #include <stdio.h>
+#include <iostream>
 #include "Sphero.h"
 
 int Command::seq = 0;
@@ -28,8 +30,8 @@ std::string Command::getPacket() {
     std::ostringstream out, out2;
     std::string data = packetData();
     
-    out2 << (char)0xff;
-    if (isAsync)  out2 << (char)0xfe; else out2 << (char)0xff;
+    out2 << (uint8_t)0xff;
+    if (isAsync)  out2 << (uint8_t)0xfe; else out2 << (uint8_t)0xff;
     out << commandHeader((uint16_t)data.length())
         << data;
     std::string ret = out.str();
@@ -39,22 +41,30 @@ std::string Command::getPacket() {
     return ret;
 }
 
+std::ostream& operator<<(std::ostream& out, Command& cmd) {
+    std::string s = cmd.getPacket();
+    for (std::string::const_iterator it = s.begin(); it != s.end(); ++it ) {
+        out << std::hex << std::setfill('0') << std::setw(2) << (uint16_t)(*it & 0xff);
+    }
+    out << std::endl;
+    return out;
+}
+
 std::string Command::checksum(const std::string& data) const {
     std::ostringstream out;
     uint8_t sum = (uint8_t)std::accumulate(data.begin(), data.end(), 0);
-    out << (char)(~sum & 0xff);
+    out << (uint8_t)(~sum & 0xff);
     return out.str();
 }
 
 std::string Command::commandHeader(uint16_t dlen) {
     std::ostringstream out;
-    sequence_no = seq++;
-    out << _did << _cid << (char)sequence_no << (char)(dlen + 1);
+    out << _did << _cid << (uint8_t)sequence_no << (uint8_t)(dlen + 1);
     return out.str();
 }
 
 void Command::out16(std::ostream &out, uint16_t data) {
-    out << (char)(data >> 8) << (char)(data & 0xff);
+    out << (uint8_t)(data >> 8) << (uint8_t)(data & 0xff);
 }
 void Command::out32(std::ostream &out, uint32_t data) {
     out16(out, data >> 16);
@@ -68,12 +78,12 @@ MoveCommand::MoveCommand(int heading, float velocity)
 
 std::string MoveCommand::packetData() {
     std::ostringstream out;
-    out << (char)(velocity * 255);
+    out << (uint8_t)(velocity * 255);
     out16(out, (uint16_t)heading);
     if (velocity == 0) {
-        out << (char)0x01;
-    } else {
         out << (char)0x00;
+    } else {
+        out << (char)0x01;
     }
     return out.str();
 }
@@ -85,8 +95,8 @@ LEDCommand::LEDCommand(float red, float green, float blue, bool persist)
 
 std::string LEDCommand::packetData() {
     std::ostringstream out;
-    out << (char)(red * 255) << (char)(green * 255) << (char)(blue * 255)
-        << (char)persist;
+    out << (uint8_t)(red * 255) << (uint8_t)(green * 255) << (uint8_t)(blue * 255)
+        << (uint8_t)persist;
     return out.str();
 }
 
@@ -134,8 +144,10 @@ Sphero::~Sphero() {
 int SpheroResponse::parse(std::vector<uint8_t> &buf) {    
     std::vector<uint8_t>::iterator bufPtr = buf.begin();
     bool breakout = false;
-    while (breakout || bufPtr != buf.end()) {
+    while (!breakout && bufPtr != buf.end()) {
         uint8_t b = *bufPtr++;
+        std::cout << "state " << _currentState 
+            << " b " << std::hex << std::setfill('0') << std::setw(2) << (uint16_t)(b & 0xff) << std::endl;
         switch (_currentState) {
             case SOP1:
                 if (b != 0xff) continue;
@@ -191,6 +203,7 @@ int SpheroResponse::parse(std::vector<uint8_t> &buf) {
             case CHECKSUM:
                 _sum = b;
                 _currentState = FINISHED;
+                breakout = true;
                 break;
             default:
                 break;
@@ -233,22 +246,26 @@ void *Sphero::reader(void *passed_this) {
             read(my_this->sphero_fh, buf, bytes);
             inputbuf.insert(inputbuf.end(), buf, &buf[bytes]);
             delete [] buf;
-            int parse_result = my_this->parser->parse(inputbuf);
-            if (parse_result == SpheroResponse::PARSE_FINISHED) {
-                if (my_this->parser->isAsync()) {
-                    if (my_this->asyncHandler) {
-                        my_this->asyncHandler(*my_this->parser);
+            while (true) {
+                int parse_result = my_this->parser->parse(inputbuf);
+                if (parse_result == SpheroResponse::PARSE_FINISHED) {
+                    if (my_this->parser->isAsync()) {
+                        if (my_this->asyncHandler) {
+                            my_this->asyncHandler(*my_this->parser);
+                        }
                     }
-                }
-                std::map<int, ResponseHandler>::const_iterator hPair = my_this->responders.find(my_this->parser->seq());
-                if (hPair == my_this->responders.end()) {
-                    if (my_this->asyncHandler) {
-                        my_this->asyncHandler(*my_this->parser);
+                    std::map<int, ResponseHandler>::const_iterator hPair = my_this->responders.find(my_this->parser->seq());
+                    if (hPair == my_this->responders.end()) {
+                        if (my_this->asyncHandler) {
+                            my_this->asyncHandler(*my_this->parser);
+                        }
+                    } else {
+                        hPair->second(*my_this->parser);
+                        std::map<int, ResponseHandler>::iterator hPair = my_this->responders.find(my_this->parser->seq());
+                        my_this->responders.erase(hPair);
                     }
                 } else {
-                    hPair->second(*my_this->parser);
-                    std::map<int, ResponseHandler>::iterator hPair = my_this->responders.find(my_this->parser->seq());
-                    my_this->responders.erase(hPair);
+                    break;
                 }
             }
         }

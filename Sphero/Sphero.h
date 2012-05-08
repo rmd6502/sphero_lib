@@ -18,7 +18,7 @@ typedef void (*ResponseHandler)(const SpheroResponse &response);
 
 class Command {
 protected:
-    Command(uint8_t did, uint8_t cid) : _did(did), _cid(cid), isAsync(false) { }
+    Command(uint8_t did, uint8_t cid) : _did(did), _cid(cid), isAsync(false) { sequence_no = seq++; }
     virtual ~Command() {}
     virtual std::string packetData() = 0;
     static int seq;
@@ -34,9 +34,13 @@ public:
     int sequence() const { return sequence_no; }
 };
 
+std::ostream& operator<<(std::ostream& out, Command& cmd);
+
 class MoveCommand : public Command {
 public:
     MoveCommand(int heading, float velocity); 
+    void setVelocity(float newVelocity) { velocity = newVelocity; }
+    void setHeading(int newHeading) { heading = newHeading; }
 private:
     std::string packetData();
     int heading; float velocity;
