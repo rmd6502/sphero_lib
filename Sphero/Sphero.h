@@ -78,7 +78,7 @@ public:
 
 class SpheroResponse {
     enum ParseStates {
-        SOP1, SOP2, MRSP, SEQ, DLEN, DATA, CHECKSUM, FINISHED
+        SOP1, SOP2, MRSP, SEQ, DLEN, DLEN2, DATA, CHECKSUM, FINISHED
     };
 private:
     ParseStates _currentState;

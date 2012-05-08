@@ -13,9 +13,11 @@
 
 void ledResponse(const SpheroResponse &response); 
 void motResponse(const SpheroResponse &response);
+void asyncResponse(const SpheroResponse &response);
 
 static volatile bool ledFinished = false;
 static volatile bool moveFinished = false;
+static volatile int sampleCount;
 
 int main(int argc, const char * argv[])
 {
@@ -36,6 +38,15 @@ int main(int argc, const char * argv[])
         }
         m.setVelocity(0);
         sph.sendCommand(m, NULL);
+        SetDataStreamingCommand s(20, 2, 0xe000, 100);
+        sampleCount = 200;
+        sph.setAsyncHandler(asyncResponse);
+        sph.sendCommand(s, NULL);
+        while (sampleCount) {
+            sleep(1);
+        }
+        SleepCommand sl;
+        sph.sendCommand(sl);
     } catch (std::string &e) {
         std::cerr << e << std::endl;
     }
@@ -52,4 +63,12 @@ void ledResponse(const SpheroResponse &response) {
 void motResponse(const SpheroResponse &response) {
     std::cout << "Got motor response" << std::endl;
     moveFinished = true;
+}
+void asyncResponse(const SpheroResponse &response) {
+    --sampleCount;
+    const uint8_t *fv = (const uint8_t *)&response.respData()[0];
+    for (int i=0; i < 6; ++i) {
+        uint16_t val = (fv[i * 2] << 8) + fv[i * 2 + 1];
+        std::cout << "param " << std::dec << i << " value " << (val/65535.f) << std::endl;
+    }
 }

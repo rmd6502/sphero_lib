@@ -152,8 +152,8 @@ int SpheroResponse::parse(std::vector<uint8_t> &buf) {
     bool breakout = false;
     while (!breakout && bufPtr != buf.end()) {
         uint8_t b = *bufPtr++;
-        //std::cout << "state " << _currentState 
-            //<< " b " << std::hex << std::setfill('0') << std::setw(2) << (uint16_t)(b & 0xff) << std::endl;
+//        std::cout << "state " << _currentState 
+//            << " b " << std::hex << std::setfill('0') << std::setw(2) << (uint16_t)(b & 0xff) << std::endl;
         switch (_currentState) {
             case SOP1:
                 if (b != 0xff) continue;
@@ -182,14 +182,16 @@ int SpheroResponse::parse(std::vector<uint8_t> &buf) {
                 _currentState = DLEN;
                 break;
             case DLEN:
+                _data_len = b;
                 if (_isAsync) {
-                    if (buf.end() - bufPtr < 2) {
-                        breakout = true;
-                        break;
-                    }
-                    _data_len = (uint16_t)(b << 8u) + *bufPtr++;
-                } else {
-                    _data_len = b;
+                    _data_len <<= 8;
+                    _currentState = DLEN2;
+                    break;
+                }
+                // fall through
+            case DLEN2:
+                if (_isAsync) {
+                    _data_len += b;
                 }
                 // the last data byte is the checksum
                 --_data_len;
@@ -284,6 +286,8 @@ void Sphero::sendCommand(Command& cmd, ResponseHandler responseHandler) {
         pthread_mutex_lock(&responderLock);
         responders[cmd.sequence()] = responseHandler;
         pthread_mutex_unlock(&responderLock);
+    } else {
+        cmd.isAsync = true;
     }
     std::string s = cmd.getPacket();
     write(sphero_fh, s.data(), s.length());
