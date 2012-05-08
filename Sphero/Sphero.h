@@ -55,6 +55,13 @@ private:
     bool persist;
 };
 
+class SleepCommand : public Command {
+public:
+    SleepCommand() : Command(0,0x22) {}
+private:
+    std::string packetData();
+};
+
 class SetDataStreamingCommand : public Command {
 private:
     uint16_t divisor; uint16_t framesPerPacket; uint32_t mask; uint8_t packetCount;

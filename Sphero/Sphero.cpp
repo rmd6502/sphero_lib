@@ -21,7 +21,7 @@
 #include <termios.h>
 #include <errno.h>
 #include <stdio.h>
-#include <iostream>
+//#include <iostream>
 #include "Sphero.h"
 
 int Command::seq = 0;
@@ -100,6 +100,12 @@ std::string LEDCommand::packetData() {
     return out.str();
 }
 
+std::string SleepCommand::packetData() {
+    std::ostringstream out;
+    out16(out, 0);
+    out << (uint8_t)0;
+    return out.str();
+}
 std::string SetDataStreamingCommand::packetData() {
     std::ostringstream out;
     out16(out, divisor);
@@ -146,8 +152,8 @@ int SpheroResponse::parse(std::vector<uint8_t> &buf) {
     bool breakout = false;
     while (!breakout && bufPtr != buf.end()) {
         uint8_t b = *bufPtr++;
-        std::cout << "state " << _currentState 
-            << " b " << std::hex << std::setfill('0') << std::setw(2) << (uint16_t)(b & 0xff) << std::endl;
+        //std::cout << "state " << _currentState 
+            //<< " b " << std::hex << std::setfill('0') << std::setw(2) << (uint16_t)(b & 0xff) << std::endl;
         switch (_currentState) {
             case SOP1:
                 if (b != 0xff) continue;
